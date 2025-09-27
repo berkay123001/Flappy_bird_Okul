@@ -1,0 +1,119 @@
+:root {
+    --pipe-head-height: 32px;
+}
+
+.game-shell {
+    position: relative;
+    width: 512px;
+    margin: 0 auto;
+    padding-top: 2rem;
+}
+
+.game-board {
+    position: relative;
+    width: 512px;
+    height: 600px;
+    overflow: hidden;
+    border-radius: 20px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+    outline: none;
+    cursor: pointer;
+    background-color: #4ec0ca;
+}
+
+.game-board.is-focused {
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
+}
+
+.game-background {
+    position: absolute;
+    inset: 0;
+    background-image: url("assets/sprites/background-day.png");
+    background-size: cover;
+    background-position: center;
+    image-rendering: pixelated;
+}
+
+.bird {
+    position: absolute;
+    width: 34px;
+    height: 24px;
+    background-image: url("assets/sprites/yellowbird-midflap.png");
+    background-size: cover;
+    image-rendering: pixelated;
+    transition: transform 0.05s linear;
+    z-index: 5;
+}
+
+.pipe {
+    position: absolute;
+    width: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    overflow: hidden;
+    image-rendering: pixelated;
+    z-index: 3;
+}
+
+.pipe-head,
+.pipe-body {
+    width: 100%;
+    background-image: url("assets/sprites/pipe-green.png");
+    background-size: 100% auto;
+    image-rendering: pixelated;
+}
+
+.pipe-head {
+    flex: 0 0 var(--pipe-head-height);
+    background-repeat: no-repeat;
+    background-position: top center;
+}
+
+.pipe-body {
+    flex: 1 1 auto;
+    background-repeat: repeat-y;
+    background-position: center calc(-1 * var(--pipe-head-height));
+}
+
+.pipe-top {
+    transform: scaleY(-1);
+    transform-origin: center;
+}
+
+.pipe-bottom {
+    transform-origin: center;
+}
+
+.ground {
+    position: absolute;
+    left: 0;
+    bottom: -12px;
+    width: 100%;
+    height: 112px;
+    background-image: url("assets/sprites/base.png");
+    background-repeat: repeat-x;
+    background-size: contain;
+    image-rendering: pixelated;
+    z-index: 4;
+}
+
+.game-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    z-index: 20;
+}
+
+.game-overlay img {
+    width: 70%;
+    max-width: 320px;
+    image-rendering: pixelated;
+}
+
+.game-overlay.game-over {
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.6));
+}

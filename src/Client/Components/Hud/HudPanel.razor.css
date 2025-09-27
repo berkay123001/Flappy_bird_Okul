@@ -1,0 +1,53 @@
+.hud-panel {
+    position: absolute;
+    top: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    color: #fff7d6;
+    text-shadow: 0 2px 2px rgba(0, 0, 0, 0.6);
+    font-family: 'Press Start 2P', 'Segoe UI', sans-serif;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.hud-panel .hud-scores {
+    display: flex;
+    gap: 1.5rem;
+    font-size: 1.25rem;
+    letter-spacing: 0.05em;
+}
+
+.hud-panel .hud-audio {
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 0.4rem 0.75rem;
+    border-radius: 0.5rem;
+    font-size: 0.85rem;
+    pointer-events: auto;
+}
+
+.hud-panel .hud-actions {
+    display: flex;
+    gap: 0.5rem;
+    pointer-events: auto;
+}
+
+.hud-panel .hud-button {
+    padding: 0.6rem 1.2rem;
+    border: none;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #ffce54, #f6bb42);
+    color: #2f2f2f;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.hud-panel .hud-button:focus,
+.hud-panel .hud-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+}

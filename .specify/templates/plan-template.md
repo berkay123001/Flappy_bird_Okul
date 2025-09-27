@@ -47,7 +47,11 @@
 ## Constitution Check
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-[Gates determined based on constitution file]
+- [ ] **P1 – Clean, Modular Game Architecture**: List components/services touched and confirm markup stays declarative with logic owned by C# classes.
+- [ ] **P2 – Deterministic Game Loop & Physics**: Describe how time-delta-driven updates and centralized physics modules are preserved or improved.
+- [ ] **P3 – Performance-First WebAssembly Delivery**: Estimate frame-time impact, planned optimizations, and mitigation for risks to the 60 FPS target.
+- [ ] **P4 – Testability & Observability**: Outline deterministic helpers, required tests, and diagnostic hooks affected by the feature.
+- [ ] **P5 – Asset Integrity & Licensing**: Enumerate asset additions/changes and confirm they originate from `/Assets` with licenses respected.
 
 ## Project Structure
 
@@ -216,4 +220,4 @@ directories captured above]
 - [ ] Complexity deviations documented
 
 ---
-*Based on Constitution v2.1.1 - See `/memory/constitution.md`*
+*Based on Constitution v1.0.0 - See `/memory/constitution.md`*

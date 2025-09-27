@@ -62,21 +62,21 @@ When creating this spec from a user prompt:
 2. **Given** [initial state], **When** [action], **Then** [expected outcome]
 
 ### Edge Cases
-- What happens when [boundary condition]?
-- How does system handle [error scenario]?
+- What happens when [boundary condition such as simultaneous input or zero velocity]?
+- How does the system handle [error scenario such as missing asset or physics overflow]?
 
 ## Requirements *(mandatory)*
 
 ### Functional Requirements
-- **FR-001**: System MUST [specific capability, e.g., "allow users to create accounts"]
-- **FR-002**: System MUST [specific capability, e.g., "validate email addresses"]  
-- **FR-003**: Users MUST be able to [key interaction, e.g., "reset their password"]
-- **FR-004**: System MUST [data requirement, e.g., "persist user preferences"]
-- **FR-005**: System MUST [behavior, e.g., "log all security events"]
+- **FR-001**: Game MUST react to tap/click/touch input within 80 ms and update the bird's velocity deterministically.
+- **FR-002**: Physics MUST apply the shared time-delta engine so gameplay remains frame-rate independent.
+- **FR-003**: Feature MUST integrate with scoring and obstacle systems without duplicating existing logic.
+- **FR-004**: Observability MUST capture key telemetry (fps, score events, crashes) via approved diagnostics hooks.
+- **FR-005**: Art and audio assets MUST load from `/Assets/flappy-bird-assets-master` or a documented successor and respect licensing notes.
 
 *Example of marking unclear requirements:*
-- **FR-006**: System MUST authenticate users via [NEEDS CLARIFICATION: auth method not specified - email/password, SSO, OAuth?]
-- **FR-007**: System MUST retain user data for [NEEDS CLARIFICATION: retention period not specified]
+- **FR-006**: Game MUST maintain 60 FPS on target devices [NEEDS CLARIFICATION: list precise devices/browsers].
+- **FR-007**: Feature MUST reuse existing assets or provide new ones [NEEDS CLARIFICATION: specify asset author/license and optimization needs].
 
 ### Key Entities *(include if feature involves data)*
 - **[Entity 1]**: [What it represents, key attributes without implementation]

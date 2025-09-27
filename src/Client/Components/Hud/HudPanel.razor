@@ -1,0 +1,24 @@
+@namespace Client.Components.Hud
+
+<div class="hud-panel" aria-live="polite">
+    <div class="hud-scores">
+        <span class="hud-score" title="Current score">@Score</span>
+        <span class="hud-high-score" title="High score">HS @HighScore</span>
+    </div>
+
+    @if (!string.IsNullOrEmpty(AudioPrompt))
+    {
+        <div class="hud-audio" role="status">@AudioPrompt</div>
+    }
+
+    <div class="hud-actions">
+        @if (!IsRunning && !IsGameOver)
+        {
+            <button class="hud-button" type="button" @onclick="StartRequested">Başla</button>
+        }
+        else if (IsGameOver)
+        {
+            <button class="hud-button" type="button" @onclick="RestartRequested">Yeniden Başlat</button>
+        }
+    </div>
+</div>

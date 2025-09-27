@@ -1,0 +1,16 @@
+@namespace Client.Components.Shared
+
+<div class="asset-preloader" aria-hidden="true">
+    @if (Assets.Count > 0)
+    {
+        foreach (var asset in Assets)
+        {
+            <img src="@asset" alt="" loading="lazy" />
+        }
+    }
+</div>
+
+@code {
+    [Parameter]
+    public IReadOnlyList<string> Assets { get; set; } = Array.Empty<string>();
+}

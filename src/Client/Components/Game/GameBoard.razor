@@ -1,0 +1,54 @@
+@namespace Client.Components.Game
+@using Client.Components.Hud
+@using Client.Components.Shared
+@using Client.Models
+
+<div class="game-shell">
+    <AssetPreloader Assets="PreloadAssets" />
+
+    <div class="game-board@(_isFocused ? " is-focused" : string.Empty)" tabindex="0" @ref="BoardElement"
+         @onpointerdown="OnPointerDownAsync"
+         @onkeydown="OnKeyDownAsync"
+         @onkeydown:preventDefault="true"
+         @onfocus="OnBoardFocused"
+         @onblur="OnBoardBlurred">
+        <div class="game-background"></div>
+
+        @foreach (PipePair pipe in GameState.Obstacles)
+        {
+            <div class="pipe pipe-top" style="@GetPipeStyle(pipe, true)">
+                <div class="pipe-head"></div>
+                <div class="pipe-body"></div>
+            </div>
+            <div class="pipe pipe-bottom" style="@GetPipeStyle(pipe, false)">
+                <div class="pipe-head"></div>
+                <div class="pipe-body"></div>
+            </div>
+        }
+
+        <div class="bird" style="@BirdStyle"></div>
+        <div class="ground"></div>
+
+        <HudPanel Score="@_score"
+                  HighScore="@_highScore"
+                  IsRunning="@GameLoop.IsRunning"
+                  IsGameOver="@IsGameOver"
+                  AudioPrompt="@AudioService.AutoplayPrompt"
+                  StartRequested="EventCallback.Factory.Create(this, StartGameAsync)"
+                  RestartRequested="EventCallback.Factory.Create(this, RestartGameAsync)" />
+
+        @if (ShowIntroOverlay)
+        {
+            <div class="game-overlay intro">
+                <img src="assets/sprites/message.png" alt="Oyuna başlamak için dokunun veya boşluk tuşuna basın." />
+            </div>
+        }
+
+        @if (IsGameOver)
+        {
+            <div class="game-overlay game-over">
+                <img src="assets/sprites/gameover.png" alt="Game over" />
+            </div>
+        }
+    </div>
+</div>

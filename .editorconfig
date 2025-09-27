@@ -1,0 +1,31 @@
+root = true
+
+[*.cs]
+indent_style = space
+indent_size = 4
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+# Namespace declarations should be file-scoped when viable
+csharp_style_namespace_declarations = file_scoped:warning
+
+# Encourage explicit types in complex expressions for clarity
+csharp_style_var_for_built_in_types = false:warning
+csharp_style_var_when_type_is_apparent = true:warning
+csharp_style_var_elsewhere = false:warning
+
+# Modifier and expression formatting for readability
+csharp_preferred_modifier_order = public, protected, private, internal, static, extern, new, virtual, abstract, sealed, override, readonly, unsafe, volatile, async:warning
+csharp_style_expression_bodied_methods = when_on_single_line:warning
+csharp_style_expression_bodied_properties = when_on_single_line:warning
+
+# Require braces for clarity in conditionals and loops
+csharp_prefer_braces = true:error
+
+# Analyzer severities routed through build warnings
+[*.cs]
+dotnet_analyzer_diagnostic.category-Style.severity = warning
+dotnet_analyzer_diagnostic.category-Design.severity = warning
+dotnet_analyzer_diagnostic.category-Maintainability.severity = warning
+dotnet_analyzer_diagnostic.category-Reliability.severity = warning
+dotnet_analyzer_diagnostic.category-Security.severity = warning

@@ -37,58 +37,58 @@
 - Include exact file paths in descriptions
 
 ## Path Conventions
-- **Single project**: `src/`, `tests/` at repository root
-- **Web app**: `backend/src/`, `frontend/src/`
-- **Mobile**: `api/src/`, `ios/src/` or `android/src/`
-- Paths shown below assume single project - adjust based on plan.md structure
+- **Blazor WebAssembly**: `src/Client/` for Razor components, `src/Client/Services/` for gameplay services, `src/Shared/` for shared models, `wwwroot/assets/` for static files.
+- **Tests**: `tests/Client.Tests/` for unit tests, `tests/Client.Integration/` for browser-simulated flows, `tests/Client.Performance/` for frame-time monitoring.
+- Always sync the concrete layout with `plan.md`; extend or modify paths when the plan chooses an alternative structure.
 
 ## Phase 3.1: Setup
-- [ ] T001 Create project structure per implementation plan
-- [ ] T002 Initialize [language] project with [framework] dependencies
-- [ ] T003 [P] Configure linting and formatting tools
+- [ ] T001 Validate solution/projects referenced in `plan.md` and ensure the Blazor WASM client is added to the workspace.
+- [ ] T002 Configure `.editorconfig`, Roslyn analyzers, and formatting hooks mandated by the constitution.
+- [ ] T003 [P] Sync `/Assets` references (optimize/compress if required) and document any new licenses.
 
 ## Phase 3.2: Tests First (TDD) ⚠️ MUST COMPLETE BEFORE 3.3
 **CRITICAL: These tests MUST be written and MUST FAIL before ANY implementation**
-- [ ] T004 [P] Contract test POST /api/users in tests/contract/test_users_post.py
-- [ ] T005 [P] Contract test GET /api/users/{id} in tests/contract/test_users_get.py
-- [ ] T006 [P] Integration test user registration in tests/integration/test_registration.py
-- [ ] T007 [P] Integration test auth flow in tests/integration/test_auth.py
+- [ ] T004 [P] Deterministic physics step test in `tests/Client.Tests/Physics/PhysicsEngineTests.cs`.
+- [ ] T005 [P] Obstacle spawn sequencing test in `tests/Client.Tests/Gameplay/ObstacleSpawnerTests.cs`.
+- [ ] T006 [P] Integration test covering scoring flow in `tests/Client.Integration/Scoring/ScoringFlowTests.cs`.
+- [ ] T007 [P] Performance harness capturing frame time metrics in `tests/Client.Performance/FrameBudgetTests.cs`.
 
 ## Phase 3.3: Core Implementation (ONLY after tests are failing)
-- [ ] T008 [P] User model in src/models/user.py
-- [ ] T009 [P] UserService CRUD in src/services/user_service.py
-- [ ] T010 [P] CLI --create-user in src/cli/user_commands.py
-- [ ] T011 POST /api/users endpoint
-- [ ] T012 GET /api/users/{id} endpoint
-- [ ] T013 Input validation
-- [ ] T014 Error handling and logging
+- [ ] T008 [P] Update `GameLoopService` (or equivalent) in `src/Client/Services/` to satisfy physics expectations.
+- [ ] T009 [P] Adjust obstacle generator logic in `src/Client/Services/ObstacleSpawner.cs` using deterministic sequencing.
+- [ ] T010 [P] Wire component state updates in `src/Client/Components/Bird/BirdComponent.razor.cs` to new service APIs.
+- [ ] T011 Implement scoring updates in `src/Client/Services/ScoreService.cs` with observable events.
+- [ ] T012 Persist performance diagnostics hooks (e.g., overlay toggles) in `src/Client/Components/Hud/DebugOverlay.razor`.
+- [ ] T013 Validate DI registrations and configuration in `Program.cs` / `MauiProgram.cs` to expose new services.
+- [ ] T014 Capture structured logs for gameplay-critical transitions.
 
 ## Phase 3.4: Integration
-- [ ] T015 Connect UserService to DB
-- [ ] T016 Auth middleware
-- [ ] T017 Request/response logging
-- [ ] T018 CORS and security headers
+- [ ] T015 Connect new services to Razor components and ensure shared models reflect updated state.
+- [ ] T016 Verify input handling across desktop, keyboard, and touch interactions with manual harness scripts.
+- [ ] T017 Update asset manifests and pre-load configuration in `wwwroot/assets-manifest.json` (if applicable).
+- [ ] T018 Run cross-browser checks (Chromium + Firefox) and log differences.
 
 ## Phase 3.5: Polish
-- [ ] T019 [P] Unit tests for validation in tests/unit/test_validation.py
-- [ ] T020 Performance tests (<200ms)
-- [ ] T021 [P] Update docs/api.md
-- [ ] T022 Remove duplication
-- [ ] T023 Run manual-testing.md
+- [ ] T019 [P] Add regression tests for scoring edge cases (wrap-around, max points) in `tests/Client.Tests/Gameplay/ScoreServiceTests.cs`.
+- [ ] T020 Record and store performance snapshot (frame time, memory, bundle size) in `/docs/performance.md`.
+- [ ] T021 [P] Update feature quickstart and manual QA checklist.
+- [ ] T022 Remove duplicate physics or collision logic identified during review.
+- [ ] T023 Execute manual smoke test (startup latency, input responsiveness, collision accuracy) and log results.
 
 ## Dependencies
-- Tests (T004-T007) before implementation (T008-T014)
-- T008 blocks T009, T015
-- T016 blocks T018
-- Implementation before polish (T019-T023)
+- Tests (T004–T007) must fail before implementation tasks (T008–T014) proceed.
+- T008 unlocks T009 and downstream integration tasks.
+- T010 and T011 must land before T015 finalizes UI bindings.
+- Performance harness (T007) must exist before recording snapshots (T020).
+- Polish tasks (T019–T023) execute after implementation is merged.
 
 ## Parallel Example
 ```
-# Launch T004-T007 together:
-Task: "Contract test POST /api/users in tests/contract/test_users_post.py"
-Task: "Contract test GET /api/users/{id} in tests/contract/test_users_get.py"
-Task: "Integration test registration in tests/integration/test_registration.py"
-Task: "Integration test auth in tests/integration/test_auth.py"
+# Launch T004–T007 together:
+Task: "Deterministic physics test in tests/Client.Tests/Physics/PhysicsEngineTests.cs"
+Task: "Obstacle spawn sequencing test in tests/Client.Tests/Gameplay/ObstacleSpawnerTests.cs"
+Task: "Scoring flow integration test in tests/Client.Integration/Scoring/ScoringFlowTests.cs"
+Task: "Frame budget harness in tests/Client.Performance/FrameBudgetTests.cs"
 ```
 
 ## Notes
@@ -100,17 +100,17 @@ Task: "Integration test auth in tests/integration/test_auth.py"
 ## Task Generation Rules
 *Applied during main() execution*
 
-1. **From Contracts**:
-   - Each contract file → contract test task [P]
-   - Each endpoint → implementation task
-   
-2. **From Data Model**:
-   - Each entity → model creation task [P]
-   - Relationships → service layer tasks
-   
+1. **From Contracts/Design Docs**:
+   - Each gameplay service or API signature → corresponding test + implementation tasks.
+   - New diagnostics or overlays → observability tasks.
+  
+2. **From Game Models**:
+   - Each entity (bird, obstacle, parallax layer, etc.) → component/service update tasks.
+   - Shared physics rules → deterministic helper and validation tasks.
+  
 3. **From User Stories**:
-   - Each story → integration test [P]
-   - Quickstart scenarios → validation tasks
+   - Each player interaction → integration test [P].
+   - Quickstart scenarios → manual QA checklist updates and documentation tasks.
 
 4. **Ordering**:
    - Setup → Tests → Models → Services → Endpoints → Polish

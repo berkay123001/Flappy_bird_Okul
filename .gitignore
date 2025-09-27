@@ -1,0 +1,47 @@
+# Build artifacts
+bin/
+obj/
+
+# Visual Studio / JetBrains
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# VS Code
+.vscode/
+.history/
+.specify/
+
+# Backup / logs
+*.log
+*.orig
+*.tmp
+*.bak
+
+# Packaging
+*.nupkg
+*.snupkg
+
+# Coverage
+coverage/
+*.coverage
+*.coveragexml
+
+# Node / tooling caches
+node_modules/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Rider
+.idea/
+
+# Publish output
+wwwroot/
+AppPackages/
+
+# Resharper
+_ReSharper.Caches/

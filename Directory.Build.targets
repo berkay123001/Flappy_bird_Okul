@@ -1,0 +1,18 @@
+<Project>
+  <PropertyGroup>
+    <AssetSourceDir>$(MSBuildThisFileDirectory)Assets/flappy-bird-assets-master</AssetSourceDir>
+    <AssetDestinationDir>$(MSBuildThisFileDirectory)src/Client/wwwroot/assets</AssetDestinationDir>
+  </PropertyGroup>
+
+  <Target Name="CopyGameAssets" BeforeTargets="Build" Condition="Exists('$(AssetSourceDir)')">
+    <ItemGroup>
+      <AssetSource Include="$(AssetSourceDir)/**" />
+    </ItemGroup>
+
+    <MakeDir Directories="$(AssetDestinationDir)" />
+    <Copy
+      SourceFiles="@(AssetSource)"
+      DestinationFiles="@(AssetSource->'$(AssetDestinationDir)/%(RecursiveDir)%(Filename)%(Extension)')"
+      SkipUnchangedFiles="true" />
+  </Target>
+</Project>
