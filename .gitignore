@@ -13,6 +13,8 @@ obj/
 .vscode/
 .history/
 .specify/
+.github/
+docs/tutorials/
 
 # Backup / logs
 *.log
@@ -45,3 +47,7 @@ AppPackages/
 
 # Resharper
 _ReSharper.Caches/
+
+# Spec Kit ve GitHub'a ozel dosyalari goz ardi et
+.specify/
+.github/
