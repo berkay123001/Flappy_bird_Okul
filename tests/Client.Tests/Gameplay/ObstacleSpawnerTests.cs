@@ -20,13 +20,13 @@ public sealed class ObstacleSpawnerTests
     [Fact]
     public void SpawnUsesRngPerInvocation()
     {
-        var rng = RecordingRng.WithValues(0.1f, 0.9f);
+        var rng = RecordingRng.WithValues(0.1f, 0.9f, 0.2f, 0.8f);
         ObstacleSpawner spawner = new(rng);
 
         PipePair first = spawner.SpawnNext();
         PipePair second = spawner.SpawnNext();
 
-        Assert.Equal(2, rng.NextFloatCount);
+        Assert.Equal(4, rng.NextFloatCount);
         Assert.NotEqual(first.GapCenterY, second.GapCenterY);
     }
 
