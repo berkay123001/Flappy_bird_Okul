@@ -33,8 +33,8 @@ jobs:
       - name: Projeyi Derle ve Yayınla
         run: dotnet publish src/Client/Client.csproj -c Release -o release --nologo /p:BasePath=/${{ github.event.repository.name }}
       
-      - name: DOSYA YAPISINI KONTROL ET (HATA AYIKLAMA)
-        run: ls -R
+      - name: EKSİK index.html DOSYASINI MANUEL KOPYALA
+        run: cp src/Client/wwwroot/index.html release/wwwroot/index.html
 
       - name: SPA yönlendirmeleri için 404.html ekle
         run: cp release/wwwroot/index.html release/wwwroot/404.html
