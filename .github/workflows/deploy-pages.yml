@@ -4,7 +4,7 @@ name: Deploy Blazor WASM to GitHub Pages
 on:
   # 'main' branch'ine her push yapıldığında çalışır
   push:
-    branches: [ main ]
+   branches: [ 001-web-tabanl-bas ]
   
   # Actions sekmesinden manuel olarak da çalıştırmanı sağlar
   workflow_dispatch:
