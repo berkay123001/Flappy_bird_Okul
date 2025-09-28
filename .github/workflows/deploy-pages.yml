@@ -36,6 +36,11 @@ jobs:
       - name: EKSİK index.html DOSYASINI MANUEL KOPYALA
         run: cp src/Client/wwwroot/index.html release/wwwroot/index.html
 
+      - name: Base href'i repo adına göre güncelle
+        env:
+          REPO_NAME: ${{ github.event.repository.name }}
+        run: sed -i "s|<base href=\"/\" />|<base href=\"/${REPO_NAME}/\" />|" release/wwwroot/index.html
+
       - name: SPA yönlendirmeleri için 404.html ekle
         run: cp release/wwwroot/index.html release/wwwroot/404.html
 

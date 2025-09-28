@@ -41,8 +41,10 @@ Thumbs.db
 .idea/
 
 # Publish output
-wwwroot/
+/wwwroot/
 AppPackages/
+!src/Client/wwwroot/index.html
+!src/Client/wwwroot/index.html
 
 # Resharper
 _ReSharper.Caches/
