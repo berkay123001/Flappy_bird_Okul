@@ -35,6 +35,13 @@ jobs:
       - name: Projeyi Derle ve Yayınla
         run: dotnet publish src/Client/Client.csproj -c Release -o release --nologo /p:StaticWebAssetBasePath=/${{ github.event.repository.name }}
 
+      - name: Base href'i repo yoluna göre güncelle
+        run: |
+          sed -i "s|<base href=\"/\" />|<base href=\"/${{ github.event.repository.name }}/\" />|" release/wwwroot/index.html
+
+      - name: SPA 404 fallback oluştur
+        run: cp release/wwwroot/index.html release/wwwroot/404.html
+
       - name: Artefaktı Yükle
         uses: actions/upload-pages-artifact@v3
         with:
