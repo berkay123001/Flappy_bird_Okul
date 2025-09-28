@@ -1,0 +1,33 @@
+html, body {
+    margin: 0;
+    height: 100%;
+    font-family: 'Press Start 2P', 'Segoe UI', sans-serif;
+    background: radial-gradient(circle at top, #96e6ff 0%, #38a3d1 45%, #1f5373 100%);
+    color: #1f1f1f;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: url("../assets/sprites/background-day.png") center/cover no-repeat;
+    opacity: 0.08;
+    filter: blur(6px);
+    z-index: -1;
+}
+
+.home-page {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+button {
+    font-family: inherit;
+}
+
+#blazor-error-ui {
+    background: #ffeedb;
+    color: #2f2f2f;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}

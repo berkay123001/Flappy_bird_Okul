@@ -43,8 +43,10 @@ Thumbs.db
 # Publish output
 /wwwroot/
 AppPackages/
-!src/Client/wwwroot/index.html
-!src/Client/wwwroot/index.html
+
+# Track client static assets
+!src/Client/wwwroot/
+!src/Client/wwwroot/**
 
 # Resharper
 _ReSharper.Caches/
