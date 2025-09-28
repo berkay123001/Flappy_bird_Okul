@@ -33,19 +33,20 @@ jobs:
           dotnet-version: 8.0.x # Projenin .NET versiyonuyla eşleşmeli
 
       - name: Projeyi Derle ve Yayınla
-        run: dotnet publish src/Client/Client.csproj -c Release -o release --nologo /p:StaticWebAssetBasePath=/${{ github.event.repository.name }}
+        run: dotnet publish src/Client/Client.csproj -c Release -o publish --nologo /p:StaticWebAssetBasePath=/${{ github.event.repository.name }}
 
       - name: Base href'i repo yoluna göre güncelle
         run: |
-          sed -i "s|<base href=\"/\" />|<base href=\"/${{ github.event.repository.name }}/\" />|" release/wwwroot/index.html
+          repo_name='${{ github.event.repository.name }}'
+          sed -i "s|<base href=\"/\" />|<base href=\"/${repo_name}/\" />|" publish/wwwroot/index.html
 
       - name: SPA 404 fallback oluştur
-        run: cp release/wwwroot/index.html release/wwwroot/404.html
+        run: cp publish/wwwroot/index.html publish/wwwroot/404.html
 
       - name: Artefaktı Yükle
         uses: actions/upload-pages-artifact@v3
         with:
-          path: release/wwwroot
+          path: publish/wwwroot
 
   deploy:
     environment:
