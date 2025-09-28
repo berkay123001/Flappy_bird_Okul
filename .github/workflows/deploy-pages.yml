@@ -30,23 +30,16 @@ jobs:
           dotnet-version: 8.0.x
       - name: Proje Bağımlılıklarını Yükle
         run: dotnet restore src/Client/Client.csproj
-      - name: Projeyi Derle ve Yayınla (BasePath'i otomatik ayarla)
-        run: dotnet publish src/Client/Client.csproj -c Release -o release --nologo /p:StaticWebAssetBasePath=/${{ github.event.repository.name }}
-
-      - name: Yayın çıktısını köke taşı
-        env:
-          REPO_NAME: ${{ github.event.repository.name }}
-        run: |
-          set -e
-          if [ -d "release/wwwroot/${REPO_NAME}" ]; then
-            rsync -a --remove-source-files "release/wwwroot/${REPO_NAME}/" "release/wwwroot/"
-            rm -rf "release/wwwroot/${REPO_NAME}"
-          fi
+      - name: Projeyi Derle ve Yayınla
+        run: dotnet publish src/Client/Client.csproj -c Release -o release --nologo /p:BasePath=/${{ github.event.repository.name }}
+      
+      - name: DOSYA YAPISINI KONTROL ET (HATA AYIKLAMA)
+        run: ls -R
 
       - name: SPA yönlendirmeleri için 404.html ekle
         run: cp release/wwwroot/index.html release/wwwroot/404.html
 
-      - name: Dağıtım Dosyalarını Yükle
+      - name: Dağıtım Dosyasını Yükle
         uses: actions/upload-pages-artifact@v4
         with:
           path: release/wwwroot
